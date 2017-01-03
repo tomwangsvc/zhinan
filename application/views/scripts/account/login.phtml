@@ -1,0 +1,159 @@
+<div class="inner">
+	<div class="porcenter">
+
+		<div class="regMenu">
+			<span id="regTab"><a>用户注册</a></span> <span id="regTab" class="active"><a>用户登入</a></span>
+			<span id="regTab"><a>找回密码</a></span> <span id="regTab"><a> 重置密码</a></span>
+
+			<span id="loginTab">还没有帐号？<a href="/account/register"> 立即注册 >></a></span>
+		</div>
+
+		<form class="accountform" id="" action="/account/login" method="post">
+			<div id="login_error"></div>
+			<p>
+				<span class="regtlx">用 户 名</span> <input placeholder="您的用户名或邮箱地址"
+					type="text" size="20" value="" class="inp inw" maxlength="30"
+					name="username" id="username" /> <span id="username_tip"></span>
+			</p>
+			<p>
+				<span class="regtlx">密 码</span> <input placeholder="您的密码"
+					type="password" size="30" name="password" id="password"
+					class="inp inw" maxlength="16" /> <span id="password_tip"></span>
+			</p>
+			<p>
+				<span class="regtlx">验 证 码</span> <input placeholder="请输入右边的字符"
+					type="text" size="30" name="chekcode" id="chekcode" class="inp inw" />
+				<span id="form_captcha"></span> <span id="chekcode_tip"></span>
+
+			</p>
+
+			<span class="regtlx">&nbsp;</span> <input type="button" class="btns"
+				value="登   入" id="btnSubmit" style="width: 110px; height: 34px;" />
+		</form>
+
+	</div>
+
+</div>
+
+
+
+<script>
+function captcha(){
+    //request captcha image
+    $.ajax({
+         url: "/myzhinan/captcha",
+         success: function(data) {
+          //handle response from server
+          if(data)
+             // alert(data);
+            $("#form_captcha").html("<img id='captchaimage' src='/images/captcha/"+data+".png'>");
+        }
+    });
+}
+
+$(document).ready(function() {
+    captcha();
+});
+
+$("#form_captcha").click(function() {
+	captcha();
+
+	});
+$('#chekcode').focus(function(){
+	$('#chekcode_tip').empty();
+	  $(this).css("border", "1px solid #5793F6");
+	  var img = "<img src='/images/notice.png'  />";
+	  var txt = "看不清？点击换一张";
+	  $('#chekcode_tip').append(img,txt);
+	  
+	});
+
+$('#chekcode').focusout(function(){
+	$('#chekcode_tip').empty();
+
+	});
+
+$('#username').focus(function(){
+	  $('#username_tip').empty();
+	  $(this).css("border", "1px solid #5793F6");
+	});
+
+$('#username').focusout(function(){
+	$('#username_tip').empty();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	var username=$(this).val().trim();
+	if(username==""){
+		txt = "用户名不能为空";
+		$('#username_tip').append(img,txt);
+		$(this).css("border", "1px solid red");
+		return false;
+	}
+	
+});
+$('#password').focus(function(){
+	  $('#password_tip').empty();
+	  $(this).css("border", "1px solid #5793F6");
+	});
+
+$('#password').focusout(function(){
+	$('#password_tip').empty();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	var password=$(this).val().trim();
+	if(password==""){
+		txt = "密码不能为空";
+		$('#password_tip').append(img,txt);
+		$(this).css("border", "1px solid red");
+		return false;
+	}
+	
+});
+
+
+$('#btnSubmit').click(function(){
+
+	$('#login_error').empty();
+	var username=$('#username').val().trim();
+	var password=$('#password').val().trim();
+	var chekcode=$('#chekcode').val().trim();	
+	
+	if( username!="" && password!="" &&chekcode!="" ){	
+			  $.ajax({		   
+		            url:"/account/login",   
+		            data:{   
+		            	username: username,             
+		                password:password,
+		                chekcode:chekcode    
+		            },          
+		            type:"POST",           
+		            dataType:"text", 
+		            success:function(data)
+		            {  		            	           
+			          if(data>0){
+				          if(data==2){
+				        	  window.location.href='/index/index'; 
+				          }
+				          if(data==1){
+				              var img = "<img src='/images/alarm.png'  />";
+				              txt = "帐号没有被激活，请登入注册邮箱查看激活链接";
+				      		  $('#login_error').append(img,txt);
+			               }
+			               if(data==3){
+			            	     var img = "<img src='/images/alarm.png'  />";
+					              txt = "验证码输入错误，请重新再试";
+					      		  $('#login_error').append(img,txt);
+			               }
+			          }else{
+			        	   var img = "<img src='/images/alarm.png'  />";
+				              txt = "用户及密码不匹配，请重新输入";
+				      		  $('#login_error').append(img,txt);
+			           }
+		            }
+		            
+		        });
+		}	
+});
+
+
+</script>

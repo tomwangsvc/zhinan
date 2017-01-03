@@ -1,0 +1,131 @@
+<div id="mypost-display">
+
+<?php if($this->mypost): ?>
+<table class="mypost-table">
+  <?php $num = 0;?>
+  <tr class="mypost-head">
+			<th class="mpt-col0"></th>
+			<th class="mpt-col1">类 别</th>
+			<th class="mpt-col2">标 题</th>
+			<th class="mpt-col3">更新时间</th>
+			<th class="mpt-col3">有效期至</th>
+			<th class="mpt-col4" colspan='2'>管理操作</th>
+			<th class="mpt-col6">推 广</th>
+		</tr>
+  <?php  foreach ($this->mypost as $post):?>
+	   <?php if($num%2==0):?>
+		  <tr class="mypost-even">
+		  
+			<td class="mpt-col0"></td>
+			<td class="mpt-col1"><?php echo $post['classname']?></td>
+			<?php if($post['class']==1):?>
+			<td class="mpt-col2"><a target='_blank' href="http://www.job.zhinan.co.nz/index/show?id=<?php echo $post['id']?>"><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo date("Y-m-d",$post['updatedate']);?></td>	
+			<td class="mpt-col3"><?php echo $post['time']?></td>		
+			<td class="mpt-col4"><a href="http://www.job.zhinan.co.nz/index/edit?returncode=2&id=<?php echo $post['id']?>">修改</a></td>
+			<td class="mpt-col5 mpt-col4"><a onclick="deletePost(<?php echo $post['class']?>,<?php echo $post['id']?>);">删除</a></td>
+			<td class="mpt-col6"></td>
+			<?php endif;?>	
+			<?php if($post['class']==2):?>
+			<td class="mpt-col2"><a target='_blank' href="http://www.acco.zhinan.co.nz/rental/show?id=<?php echo $post['id']?>"><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo date("Y-m-d",$post['updatedate']);?></td>
+			<td class="mpt-col3"><?php echo $post['time']?></td>			
+			<td class="mpt-col4"><a href="http://www.acco.zhinan.co.nz/rental/edit?returncode=2&id=<?php echo $post['id']?>">修改</a></td>
+			<td class="mpt-col5 mpt-col4"><a onclick="deletePost(<?php echo $post['class']?>,<?php echo $post['id']?>);">删除</a></td>
+			<td class="mpt-col6"></td>					
+			<?php endif;?>
+			
+		</tr>
+	  <?php endif;?>
+	  <?php if($num%2!=0):?>
+		  <tr class="mypost-odd">
+		  
+			<td class="mpt-col0"></td>
+			<td class="mpt-col1"><?php echo $post['classname']?></td>
+			<?php if($post['class']==1):?>
+			<td class="mpt-col2"><a target='_blank' href="http://www.job.zhinan.co.nz/index/show?id=<?php echo $post['id']?>"><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo date("Y-m-d",$post['updatedate']);?></td>	
+			<td class="mpt-col3"><?php echo $post['time']?></td>		
+			<td class="mpt-col4"><a href="http://www.job.zhinan.co.nz/index/edit?returncode=2&id=<?php echo $post['id']?>">修改</a></td>
+			<td class="mpt-col5 mpt-col4"><a onclick="deletePost(<?php echo $post['class']?>,<?php echo $post['id']?>);">删除</a></td>
+			<td class="mpt-col6"></td>
+			<?php endif;?>	
+			<?php if($post['class']==2):?>
+			<td class="mpt-col2"><a target='_blank' href="http://www.acco.zhinan.co.nz/rental/show?id=<?php echo $post['id']?>"><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo date("Y-m-d",$post['updatedate']);?></td>
+			<td class="mpt-col3"><?php echo $post['time']?></td>	
+			<td class="mpt-col4"><a href="http://www.acco.zhinan.co.nz/rental/edit?returncode=2&id=<?php echo $post['id']?>">修改</a></td>
+			<td class="mpt-col5 mpt-col4"><a onclick="deletePost(<?php echo $post['class']?>,<?php echo $post['id']?>);">删除</a></td>
+			<td class="mpt-col6"></td>					
+			<?php endif;?>			
+			
+		  </tr>
+	  <?php endif;?>
+	  
+    <?php $num++;?>
+  <?php endforeach;?>
+ 
+</table>
+ <?php endif;?>
+ 
+ <?php if(!$this->mypost):?>
+ <div class="mp-np-notice">
+		<p>没有可显示的信息！</p>
+	</div>
+ <?php endif;?>
+
+
+</div>
+
+<script>
+function editPost(classid, itemid){
+	 $.ajax({		   
+        url:"/mypost/edit",   
+        data:{   
+       	 classid:classid,             
+       	 itemid:itemid 
+        },          
+        type:"POST",           
+        dataType:"text", 
+        success:function(data)
+        {
+        	if(data){
+           	 // alert("修改成功,请等待审核！");
+           	 // window.location.href='/mypost/display';  
+             }else{
+         	  return;
+             }    	    
+        }
+    });
+	
+}
+function updatePost(classid, itemid){
+	 $.ajax({		   
+         url:"/mypost/update",   
+         data:{   
+        	 classid:classid,             
+        	 itemid:itemid 
+         },          
+         type:"POST",           
+         dataType:"text", 
+         success:function(data)
+         {
+          if(!data){
+        	  alert("今天您已更新过了！");
+        	  return;
+          }
+          alert("更新成功！");
+          window.location.href='/mypost/display';  
+     	    
+         }
+     });
+	
+}
+function deletePost(classid, itemid){
+	deleteCheckForm(classid,itemid,2);
+}
+
+
+
+
+</script>

@@ -1,0 +1,49 @@
+<!--
+See http://developer.yahoo.com/ypatterns/pattern.php?pattern=itempagination
+-->
+
+<?php if ($this->pageCount): ?>
+<div class="paginationControl">
+
+	<div id="currentpage">
+
+		<span class="disabled">总计</span> 
+<?php echo $this->totalItemCount." "; ?>条记录  | 
+<span class="disabled">第</span> 
+<?php echo $this->current." "; ?> 页  | 共 <?php echo $this->pageCount." 页"; ?>
+</div>
+	<div id="pagenavigation">
+		<!-- First page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->first)); ?>"> 首页
+		</a> |
+<?php else: ?>
+  <span class="disabled">首页</span> |
+<?php endif; ?>
+
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+			上一页 </a> |
+<?php else: ?>
+  <span class="disabled">上一页</span> |
+<?php endif; ?>
+
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->next)); ?>"> 下一页
+		</a> |
+<?php else: ?>
+  <span class="disabled">下一页</span> |
+<?php endif; ?>
+
+<!-- Last page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->last)); ?>"> 未页
+		</a>
+<?php else: ?>
+  <span class="disabled">未页</span>
+<?php endif; ?>
+</div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,281 @@
+<div class="cb win1000">
+
+	<div class="porleft">
+
+		<div class="regMenu">
+
+			<span id="regTab" class="active"><a>用户注册</a></span> <span id="regTab"><a>用户登入</a></span>
+			<span id="regTab"><a>找回密码</a></span> <span id="regTab"><a> 重置密码</a></span>
+			<span id="loginTab">已有账号？<a href="/account/login"> 直接登录 >></a></span>
+		</div>
+
+		<form id="signupForm" action="/account/create" method="post">
+			<div class="regWrap">
+				<div id="origReg">
+					<div id="regCon">
+						<p>
+							<input type="hidden" name="regType" value="email"> <span
+								class="regtlx">用 户 名</span> <input type="text" size="20"
+								value="" class="inp inw" maxlength="20" name="username"
+								id="username" /> <span id="username_Tip" class="register-notice"></span>
+						</p>
+						<p>
+							<span class="regtlx">电&nbsp;子&nbsp;邮&nbsp;箱</span> <input
+								type="text" size="20" value="" class="inp inw" id="email"
+								name="email" /> <span id="email_Tip" class="register-notice"></span>
+
+						</p>
+
+					</div>
+					<div id="passwordCon">
+						<p>
+							<span class="regtlx">密 码</span> <input type="password" size="30"
+								name="password" id="password" class="inp inw" maxlength="16" />
+							<span class="register-notice" id="password_Tip"
+								style="z-index: 100;"></span>
+						</p>
+						<p id="cpp">
+							<span class="regtlx">密&nbsp;码&nbsp;确&nbsp;认</span> <input
+								type="password" size="30" name="cpassword" id="cpassword"
+								class="inp inw" maxlength="16" /> <span id="cpassword_Tip"
+								class="register-notice"></span>
+						</p>
+					</div>
+					<div>
+
+						<div id="form_captcha"></div>
+					</div>
+					<p class="agreement">
+						<span class="regtlx">&nbsp;</span> <input type="checkbox"
+							checked="checked" /> <span>我已阅读并同意</span><a target="_blank"
+							href="/index/agreement">《新西兰指南网使用协议》</a><span
+							id="chkagreement_Tip"></span>
+					</p>
+					<p class="submitwrap">
+						<span class="regtlx">&nbsp;</span> <input type="button"
+							class="btns" value="立即注册" id="btnSubmit"
+							style="width: 110px; height: 34px;" /></label>
+					</p>
+
+				</div>
+			</div>
+		</form>
+
+	</div>
+
+</div>
+<div id="processImage">
+	<img src="/images/process2.gif">
+</div>
+
+<script type="text/javascript">
+
+var istrueofusername=true;
+var istrueofpassword=true;
+var istrueofemail=true;
+var istrueofcpassword=true;
+
+
+$('#username').focus(function(){
+	  $('#username_Tip').empty();
+	  var img = "<img src='/images/notice.png'  />";
+	  var txt = "用户名长度3-16位，可由字母、汉字、数字、或“_”组成，注册成功后用户名不能修改";
+	  $('#username_Tip').append(img,txt);
+	  $(this).css("border", "1px solid #5793F6");
+	  istrueofusername=false;
+	  
+	});
+$('#email').focus(function(){
+	  $('#email_Tip').empty();
+	  var img = "<img src='/images/notice.png'  />";
+	  var txt = "请输入有效的电子邮箱，可用于登录和找回密码";
+	  $(this).css("border", "1px solid #5793F6");
+	  $('#email_Tip').append(img,txt);
+	  var istrueofemail=false;
+	});
+$('#password').focus(function(){
+	  $('#password_Tip').empty();
+	  var img = "<img src='/images/notice.png'  />";
+	  var txt = "密码需由6-16个字母、数字和符号组成，区分大小写";
+	  $(this).css("border", "1px solid #5793F6");
+	  $('#password_Tip').append(img,txt);
+	  istrueofpassword=false;
+	});	
+$('#cpassword').focus(function(){
+	  $('#cpassword_Tip').empty();
+	  var img = "<img src='/images/notice.png'  />";
+	  var txt = "请再次输入您的密码";
+	  $(this).css("border", "1px solid #5793F6");
+	  $('#cpassword_Tip').append(img,txt);
+	  var istrueofcpassword=false;
+	});
+
+$('#password').focusout(function(){
+	$('#password_Tip').empty();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	var password=$(this).val().trim();
+	if(password.length<6 || password.length>16){
+		txt = "密码需由6-16个字母、数字和符号组成，区分大小写";
+		$('#password_Tip').append(img,txt);
+		$(this).css("border", "1px solid red");
+		istrueofpassword = false;
+		return;
+	}
+	istrueofpassword =true;
+});
+$('#cpassword').focusout(function(){
+	$('#cpassword_Tip').empty();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	var cpassword=$(this).val().trim();
+	var password=$("#password").val().trim();
+	if(password != cpassword || cpassword==""){
+		txt = "您输入的密码不匹配，请重新输入";
+		$('#cpassword_Tip').append(img,txt);
+		$(this).css("border", "1px solid red");
+		istrueofcpassword = false;
+		return;
+	}
+	istrueofcpassword = true;
+});
+
+$('#username').focusout(function(){
+	$('#username_Tip').empty();
+	var username=$(this).val().trim();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	if(username.length<3 ||username.length >16 ||!validateUsername(username)){		
+		txt = "用户名长度3-16位，可由字母、汉字、数字、或“_”组成，必须以汉字或字母开头";
+		$(this).css("border", "1px solid red");
+		$('#username_Tip').append(img,txt);
+		istrueofusername = false;
+		return;
+	}else{
+		   $.ajax({			   
+	            url:"/account/checkusername",   // url that will use
+	            data:{                  // data that will be sent
+	                username:username      
+	            },          
+	            type:"POST",            // type of submision
+	            dataType:"text",        // what type of data we'll get back
+	            success:function(data)
+	            {    
+	                if(data > 0 ) {
+	                	txt = "此用户名已被注册，请选择另一个用户名注册";                	
+	            		$('#username_Tip').append(img,txt);
+	            		$('#username').css("border", "1px solid red");
+	            		istrueofusername = false;                   
+	                 }else { 
+	                	 istrueofusername = true;
+		                 }
+	            }
+	        });
+
+		}	
+});
+
+$('#email').focusout(function(){
+	$('#email_Tip').empty();
+	var email=$(this).val().trim();
+	var img = "<img src='/images/alarm.png'  />";
+	var txt ="";
+	if(!validateEmail(email)){		
+		txt = "请输入有效的电子邮箱";
+		$(this).css("border", "1px solid red");
+		$('#email_Tip').append(img,txt);
+		istrueofemail=false;
+	}else{
+	   $.ajax({		   
+          url:"/account/checkemail", // url that will use
+          data:{                  // data that will be sent
+              email:email      
+          },          
+          type:"POST",            // type of submision
+          dataType:"text",        // what type of data we'll get back
+          success:function(data)
+          {    
+              if(data > 0 ) {
+              	txt = "此邮箱已被注册，请直接登入或换个邮箱再试";
+              	$('#email_Tip').append(img,txt);
+                  //messageDialog("Error", message, "error", 2);
+                  istrueofemail = false;
+                  return false;                   
+               }
+               else { 
+              	 istrueofemail = true;
+                   return true;}
+          }
+      });
+
+	}	
+});
+
+
+
+$('#btnSubmit').click(function(){
+	var username=$('#username').val().trim();
+	var email=$('#email').val().trim();
+	var password=$('#password').val().trim();
+	var cpassword=$('#cpassword').val().trim();
+	var img = "<img src='/images/alarm.png'  />";
+  if(username==""){
+  	$('#username_Tip').empty();
+      txt = "用户名不能为空";
+		$('#username').css("border", "1px solid red");
+		$('#username_Tip').append(img,txt);	
+      }
+  if(email==""){
+  	$('#email_Tip').empty();
+  	txt = "邮箱不能为空";
+		$('#email').css("border", "1px solid red");
+		$('#email_Tip').append(img,txt);
+  }
+  if(password==""){
+  	$('#password_Tip').empty();
+  	txt = "密码不能为空";
+		$('#password').css("border", "1px solid red");
+		$('#password_Tip').append(img,txt);
+  }
+  if(cpassword==""){
+  	$('#cpassword_Tip').empty();
+  	txt = "密码确认不能为空";
+		$('#cpassword').css("border", "1px solid red");
+		$('#cpassword_Tip').append(img,txt);
+  }
+	
+	if(istrueofemail && istrueofusername && istrueofpassword && istrueofcpassword && 
+			(username!="" && email!="" && password!="" && cpassword!="")){			
+		showProcessImage();
+		$.ajax({		   
+            url:"/account/register",   
+            data:{   
+            	username: username,             
+                email:email, 
+                password:password    
+            },                    
+            type:"POST",           
+            dataType:"text", 
+            success:function(data)
+            {  	
+            	clearProcessImage();	
+                if(data){
+          	      var txt ="注册成功!";
+     				 var url="/account/login";
+     				 shownotice(txt,5, url);   
+   	            }else{
+   	            	 var txt ="<span style='color:red'>注册失败</span>，请稍后再试";
+    				 var url="/account/register";
+    				 shownotice(txt,5, url);
+   	            }
+   					            	          
+            }
+            
+        });   
+	
+	}
+});
+
+
+
+</script>

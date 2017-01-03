@@ -1,0 +1,658 @@
+/* CSS Document */
+body,dl,ol,ul,li,dt,dd,p,h2,h3,h4 {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	-webkit-text-size-adjust: none
+}
+
+body {
+	font: 12px/1.2 Arial, Tahoma, "å®‹ä½“", sans-serif;
+	color: #333;
+}
+
+a {
+	color: #0000cc;
+	text-decoration: none
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+img {
+	border: none;
+	vertical-align: middle;
+}
+
+select,input {
+	font: 100% Tahoma, Helvetica, Arial, sans-serif
+}
+
+.hc {
+	display: none
+}
+
+.sc {
+	display: block
+}
+
+body,.f12 {
+	font-size: 12px
+}
+
+.c {
+	height: 0px;
+	font-size: 0;
+	clear: both;
+	overflow: hidden
+}
+
+.tac {
+	text-align: center
+}
+
+.cb,#footer {
+	margin: 0 auto;
+	clear: both;
+	overflow: hidden;
+	background: #fff
+}
+
+.cb {
+	margin-bottom: 40px
+}
+
+#footer p {
+	text-align: center;
+	line-height: 24px;
+	border-top: 1px solid #B8B8B8;
+	padding-top: 10px;
+	font-size: 12px
+}
+
+.left {
+	float: left;
+}
+
+.win1000 {
+	width: 980px;
+}
+
+.win900 {
+	width: 980px;
+}
+
+.tel-r-10 {
+	margin-right: 10px !important;
+}
+
+.inp {
+	border: 1px solid #C8C8C8;
+	height: 30px;
+	line-height: 2;
+	margin-right: 3px;
+	padding: 0 3px;
+	vertical-align: middle
+}
+
+.loginbox {
+	font: 12px/3 Tahoma, Helvetica, Arial, 'å®‹ä½“', sans-serif;
+	padding: 0px 0 20px;
+}
+
+.loginbox table {
+	border-collapse: collapse;
+	border: none;
+	width: 100%;
+}
+
+.loginbox table th {
+	padding-right: 10px;
+	text-align: right;
+	font-size: 14px;
+	width: 53px;
+	color: #666;
+	font-weight: normal;
+	vertical-align: text-top;
+}
+
+.loginbox table td {
+	padding: 8px 0 0px 0;
+}
+
+.logintip {
+	width: auto !important;
+	padding: 0;
+	font-size: 12px !important;
+	line-height: 20px !important;
+}
+
+.inw {
+	width: 280px;
+}
+
+.inw2,#authcode {
+	width: 76px;
+	width: 76px\0;
+	*width: 73px;
+	_width: 73px;
+}
+
+.inw3,#authcode {
+	width: 50px;
+}
+
+/* header */
+#header {
+	height: 90px;
+	border-bottom: #dbe0e3 1px solid;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+#login-header {
+	height: 80px;
+	border: none;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+#logo,#cityname,#logintext {
+	position: absolute
+}
+
+#logo {
+	top: 20px;
+}
+
+#logo img {
+	display: block;
+}
+
+#cityname {
+	height: 50px;
+	border-left: #dbe0e3 1px solid;
+	top: 24px;
+	left: 220px;
+	padding: 8px 0 0 15px;
+}
+
+#cityname span {
+	font: 24px/1.8 "å¾®è½¯é›…é»‘", "é»‘ä½“", sans-serif;
+	color: #f78f16;
+	font-weight: bold;
+}
+
+#login {
+	position: absolute;
+	right: 160px;
+	top: 50px;
+}
+
+#logintext {
+	right: 10px;
+	top: 50px;
+	color: #eaeaea;
+}
+
+#logintext a {
+	margin: 0 14px;
+	color: #f78f16;
+}
+
+#logintext a:hover {
+	color: #2d78f4;
+	text-decoration: underline;
+}
+
+.btns {
+	border: 1px solid #E18E2B;
+	padding: 6px 20px 7px 20px;
+	padding: 10px 18px 6px 18px\0;
+	*padding: 8px 10px 7px 10px;
+	_ padding: 6px 10px 7px 10px;
+	display: block;
+	background: #f78f16;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	margin: 0
+}
+
+.btns:hover {
+	background: #F9A545;
+}
+
+.porleft {
+	width: 730px;
+	font-size: 14px;
+	min-height: 400px;
+	_height: 400px;
+	margin: 46px auto 0;
+	height: 438px;
+	float: none;
+	padding-left: 0;
+	padding-top: 0;
+}
+
+.porright {
+	width: 226px;
+	float: right;
+	padding-left: 30px;
+	background: url(https://passport.58.com/pic2/ui6/my/images/reg-line.gif)
+		left repeat-y;
+	min-height: 400px;
+	_height: 400px;
+	font-size: 14px;
+	margin-top: 40px
+}
+
+.porright a {
+	margin-left: 2px;
+}
+
+.porleft p {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	line-height: 2;
+}
+
+.porright p {
+	line-height: 28px;
+	padding-bottom: 20px;
+}
+
+.porleft .mima_a p,.porleft .mima_b p,.porright .mima_c p,.porright .mima_d p
+	{
+	padding: 0;
+	margin: 0
+}
+
+.porleft .bt {
+	padding: 20px 0 40px 50px;
+}
+
+.pawgx {
+	float: left;
+	width: 120px;
+	display: block
+}
+
+.pawgx2 {
+	float: left;
+	width: 100px;
+	display: block
+}
+
+.regtlx {
+	float: left;
+	width: 78px;
+	display: block;
+	color: #666;
+}
+
+em.em-tip {
+	font-style: normal;
+	color: #ccc;
+	font-size: 12px;
+}
+
+em.mr5 {
+	margin-left: 5px;
+}
+
+.porleft .pawgxbut {
+	padding-left: 120px
+}
+
+.porleft .pawgxbut2 {
+	padding-left: 100px
+}
+
+.porright div {
+	margin: 0;
+	padding: 0
+}
+
+#conright .inw {
+	width: 190px;
+	font-size: 14px;
+}
+
+#conright .wrong_color {
+	border: 1px solid #ff9a9a;
+	height: 30px;
+}
+
+#conright .action_color {
+	border: 1px solid #C8C8C8;
+	height: 30px;
+}
+
+/* æ³¨å†Œé¡µæ”¹ç‰ˆ */
+.regMenu {
+	border-bottom: 1px solid #cdcfd1;
+	height: 37px;
+}
+
+.regMenu span {
+	display: inline-block;
+	_display: inline;
+	_zoom: 1;
+	line-height: 35px;
+	padding: 0;
+	font-weight: bold;
+}
+
+.regMenu span a {
+	display: block;
+	margin: 0 50px 0 0;
+	color: #888888;
+	outline: none;
+	position: relative;
+	top: 1px;
+	_top: -1px;
+	*top: -1px;
+	width: 60px;
+	text-decoration: none;
+}
+
+.regMenu span.active {
+	background: #FFFFFF;
+	color: #000000;
+}
+
+.regMenu span.active a {
+	padding-top: 0;
+	color: #000000;
+	border-bottom: 2px solid #ff4200;
+	_top: 1px;
+	*top: 1px;
+}
+
+.regMenu span a:hover {
+	color: #888888;
+}
+
+.regMenu span.active a:hover {
+	color: #000000;
+}
+
+.porright .icon-login a {
+	line-height: 14px;
+	margin: 6px 0;
+}
+
+.porleft .agreement {
+	line-height: 14px;
+	height: 14px;
+	font-size: 12px;
+	color: #666;
+}
+
+.agreement input {
+	margin: 0 3px 0 0;
+	vertical-align: middle;
+	*vertical-align: top;
+	margin-top: -2px;
+}
+
+.agreement a {
+	color: #666;
+}
+
+.porleft p {
+	padding: 10px 0;
+	line-height: 30px;
+}
+
+.porleft input {
+	vertical-align: middle;
+}
+
+.regtlx {
+	width: 84px;
+}
+
+.porright {
+	line-height: 30px;
+}
+
+.porright p {
+	padding-bottom: 15px;
+}
+
+.porright .icon-login {
+	padding: 15px 0 0 0;
+	font-size: 12px;
+}
+
+.porright .icon-login a {
+	color: #686868;
+}
+
+.icon-login a {
+	border: 0;
+	width: 80px;
+	display: inline-block;
+	_display: inline;
+	_zoom: 1;
+	padding-right: 0;
+	line-height: 14px;
+}
+
+#loginTab {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	display: inline;
+	font-weight: normal;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+.regMenu {
+	position: relative;
+}
+
+#loginTab a {
+	color: #0000cc;
+	display: inline;
+	margin: 0;
+	outline: medium none;
+	position: static;
+	text-decoration: none;
+	width: auto;
+}
+
+.regWrap {
+	padding-top: 32px;
+}
+
+#wxwrap {
+	width: 100%;
+	position: relative;
+}
+
+#ewmwrap {
+	position: absolute;
+	top: 24px;
+	width: 100%;
+}
+
+#tipwrap {
+	position: absolute;
+	top: 20px;
+	width: 100%;
+}
+
+#ewmwrap p {
+	text-align: center;
+	color: #888888;
+	font-weight: bold;
+	line-height: 35px;
+}
+
+#ewmimgwrap {
+	margin: 0 auto;
+	width: 149px;
+	height: 149px;
+	border: 1px solid #d3d3d3;
+	position: relative;
+}
+
+#expireMask {
+	display: block;
+	z-index: 1;
+	cursor: pointer;
+}
+
+#expireMask div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: 0.6;
+	filter: Alpha(Opacity = 60);
+}
+
+#expireMask p {
+	color: #FFF;
+	font-size: 12px;
+	line-height: 25px;
+	padding-top: 48px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+#showtip {
+	padding-top: 245px;
+	text-align: center;
+}
+
+#showtip a {
+	color: #b8b8b8;
+}
+
+#origReg {
+	padding-left: 52px;
+}
+
+#weixinReg {
+	padding-left: 18px;
+}
+
+p.submitwrap {
+	position: relative;
+}
+
+.agreement a {
+	color: #0000cc;
+}
+
+#loginOpt {
+	font-size: 12px;
+	line-height: 14px;
+	position: absolute;
+	bottom: 12px;
+	margin-left: 10px;
+}
+
+/* login page*/
+.inner {
+	width: 1024;
+	margin: 0 auto;
+}
+
+.porcenter {
+	width: 750px;
+	margin: 40px auto;
+}
+
+.accountform {
+	margin: 60px auto;
+	width: 550px;
+}
+
+.accountform input[type="text"],.accountform input[type="password"] {
+	width: 300px;
+	font-size: 13px;
+}
+
+.accountform p {
+	margin-bottom: 30px;
+}
+
+.accountform p span {
+	padding-top: 6px;
+}
+
+.accountform #chekcode {
+	width: 150px;
+}
+
+.accountform img {
+	width: 20px;
+	margin-bottom: 3px;
+	margin-right: 5px;
+}
+
+.accountform #login_error {
+	margin: 0px 0 10px 80px;
+	color: red;
+}
+
+/* register notice*/
+.register-notice img {
+	height: 17px;
+	width: 18px;
+	margin-right: 5px;
+}
+
+.register-notice {
+	width: 300px;
+	height: 30px;
+	float: right;
+	font-size: 12px;
+	line-height: 17px;
+}
+
+/*register success*/
+.success-notice {
+	width: 600px;
+	height: 100px;
+	margin: 80px auto;
+	text-align: center;
+}
+
+.success-notice p {
+	font-size: 18px;
+	line-height: 60px;
+	color: #0052CC;
+}
+
+.success-notice #timer {
+	color: red;
+}
+
+/*change password*/
+.cp_tip {
+	width: 210px;
+	float: right;
+	font-size: 12px;
+}
+
+.cp_tip img {
+	width: 16px;
+}
+
+#cpnl_alarm {
+	margin-left: 80px;
+}

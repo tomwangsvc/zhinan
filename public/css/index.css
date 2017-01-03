@@ -1,0 +1,42 @@
+.flash {
+	position: relative;
+	font-size: 0px;
+	margin-top: 0px;
+	width: 1024px;
+}
+
+.flash img {
+	width: 1026px;
+	height: 297px;
+}
+
+.flash .bx-pager {
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+	z-index: 1;
+}
+
+.flash .bx-pager .pager-link {
+	float: left;
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+	text-align: center;
+	margin: 0 0 0 10px;
+	background: #FC0;
+	color: #930;
+}
+
+.flash .bx-pager .pager-link:hover {
+	text-decoration: none;
+}
+
+.flash .bx-pager .pager-active {
+	background: #0C3;
+	color: #fff;
+}
+
+.bx-window {
+	margin-top: -25px;
+}

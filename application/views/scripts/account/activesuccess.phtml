@@ -1,0 +1,37 @@
+<div class="inner">
+
+	<div class="success-notice">
+		<p>帐号已激活成功!</p>
+		<p>
+			<span id="timer">5</span> 秒后将自动跳转至指南首页
+		</p>
+
+		<p></p>
+
+	</div>
+</div>
+
+<script>
+
+var currentTime = new Date().getTime()
+
+$(document).ready(function () {
+    // Handler for .ready() called.
+    window.setTimeout(function () {
+        location.href = "/index/index";
+    }, 5000)
+});
+var count=5;
+var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+function timer()
+{
+  count=count-1;
+  if (count < 0)
+  {
+     clearInterval(counter);
+     //counter ended, do something here
+     return;
+  }
+  document.getElementById("timer").innerHTML=count;
+}
+</script>

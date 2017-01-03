@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新西兰指南网</title>
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<script src="/js/jQuery1.7.2.js" type="text/javascript"></script>
+<script src='/js/menu_slider.js' type='text/javascript'></script>
+<?php echo $this->headScript()->appendFile('/js/ajax.js');?>
+<?php echo $this->headScript()->appendFile('/js/zhinan.js');?>
+</head>
+<body>
+	<div class="topbar">
+		<div class="sub-topbar  inner">
+			<div class="bar-left">
+				<span></span>
+			</div>
+			<!-- end of bar-left -->
+
+			<div class="bar-right">
+
+				<ul>
+					<li id="top-user-area">
+	<?php
+	Zend_Session::start ();
+	if (isset ( $_SESSION ['user'] )) {
+		echo ' <span id="logineduser"> 您好! ' . $_SESSION ['user'] ['name'];
+		echo '</span><span>|</span>';
+		echo "<li><a href='/account/logout'> 安全退出</a></li>";
+	} else {
+		echo "<a id='loginbtn'> 登入</a>";
+	}
+	?>	
+	</li>
+					<li><span>|</span></li>
+					<li><a href='/account/register'> 注册</a></li>
+					<li><span>|</span></li>
+					<li><a id="myzhinan-head" href='javascript:void();'>我的指南<img
+							id="myzhinan-arrow" src="/images/arrow-down.png">
+					</a>
+						<div id="myzhinan-menu">
+
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/account/changepassword"';}?>>修改密码</a>
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/mypost/index"';}?>>我的发布</a>
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/myzhinan/index"';}?>>个人中心</a>
+						</div></li>
+					<li><span>|</span></li>
+					<li><a href='#'>帮助</a></li>
+				</ul>
+
+			</div>
+			<!-- end of bar-right -->
+		</div>
+		<!-- end of sub-topbar -->
+	</div>
+	<!-- end of topbar -->
+
+	<div class="homewrap inner">
+
+		<div class="web_logo">
+			<a href="/index/index"> <img src="/images/logo2.png" alt="新西兰指南网"
+				title="新西兰指南网" />
+			</a>
+		</div>
+
+		<div class="top-search">
+			<form action="" method="post">
+				<input class="ts-cont" type="text" name="search-content"><input
+					class="ts-sub" type="submit" value="指南搜索">
+			</form>
+		</div>
+		<!-- end of top-search -->
+
+		<div class="free-post">
+			<a>免费发布信息</a>
+		</div>
+
+
+	</div>
+	<!-- end of homewrap -->
+
+
+	<div class="navigation inner">
+		<ul>
+			<li><a <?php if($this->current=="index"){echo 'class="current"';}?>
+				href="/index/index">首页</a></li>
+			<li><a
+				<?php if($this->current=="recruitment"){echo 'class="current"';}?>
+				href="http://www.job.zhinan.co.nz/index">招聘信息</a></li>
+				
+			<li><a <?php if($this->current=="rental"){echo 'class="current"';}?>
+				href="http://www.acco.zhinan.co.nz/rental">房屋出租</a></li>
+				
+			<li><a <?php if($this->current=="estate"){echo 'class="current"';}?>
+				href="javascript:none()">旅馆酒店</a></li>	
+				
+			<li><a
+				<?php if($this->current=="business"){echo 'class="current"';}?>
+				href="javascript:none()">生意出售</a></li>	
+				
+			<li><a
+				<?php if($this->current=="secondhand"){echo 'class="current"';}?>
+				href="javascript:none()">跳蚤市场</a></li>	
+		
+			<li><a <?php if($this->current=="estate"){echo 'class="current"';}?>
+				href="javascript:none()">房产出售</a></li>
+				
+			<li><a <?php if($this->current=="school"){echo 'class="current"';}?>
+				href="javascript:none()">学校培训</a></li>
+			
+			
+			<li><a <?php if($this->current=="company"){echo 'class="current"';}?>
+				href="javascript:none()">企业名片</a></li>	
+				
+ <!--
+			<li><a <?php if($this->current=="church"){echo 'class="current"';}?>
+				href="javascript:none()">教会</a></li>
+			<li><a
+				<?php if($this->current=="community"){echo 'class="current"';}?>
+				href="javascript:none()">社团</a></li>
+			<li><a
+				<?php if($this->current=="community"){echo 'class="current"';}?>
+				href="javascript:none()">俱乐部</a></li>
+			<li><a <?php if($this->current=="pinche"){echo 'class="current"';}?>
+				href="javascript:none()">拼车</a></li>
+			<li><a <?php if($this->current=="fishing"){echo 'class="current"';}?>
+				href="javascript:none()">钓鱼</a></li>
+			<li><a <?php if($this->current=="friend"){echo 'class="current"';}?>
+				href="javascript:none()">交友</a></li>
+ -->
+		</ul>
+
+	</div>
+	<!-- end of navigation -->
+
+	<div class="content inner">
+
+ <?php echo $this->layout()->content; ?>
+
+</div>
+
+<?php
+$username = isset ( $_COOKIE ['zhinuser'] ) ? $_COOKIE ['zhinuser'] : "";
+$password = isset ( $_COOKIE ['zhinpass'] ) ? $_COOKIE ['zhinpass'] : "";
+?>
+
+<div class="loginform" style="visibility: hidden;">
+		<span class="exit"><img id="exitbtn" src="/images/exit.png"></span><br>
+		<div class="notice"></div>
+		<input type="text" name="username" id="username"
+			value="<?php echo $username?>" placeholder="请输入您的用户名或邮箱地址"><br> <input
+			type="password" id="password" name="password"
+			value="<?php echo $password?>" placeholder="请输入您的密码"><br> <input
+			type="button" id="submitbtn" name="submitbtn" value="登&nbsp;入"> <span><input
+			class="rememberpsw-check" type="checkbox" checked="checked"
+			value="true" name="autologin"><label class="remember-password">记住密码</label></span><br>
+		<p>
+			<a href="/account/getpassword">忘记密码</a> <a href="/account/register">立即注册</a>
+		</p>
+	</div>
+</body>
+</html>
+
+	<script type="text/javascript">
+
+	
+	
+$('#myzhinan-menu').mouseover(function(){
+	$('#myzhinan-menu').css("visibility", "visible");
+	$('#myzhinan-head').css("background", "#DCDCDC");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-up.png"); 
+	});
+$('#myzhinan-menu').mouseout(function(){
+	$('#myzhinan-menu').css("visibility", "hidden");
+	$('#myzhinan-head').css("background", "#f5f5f5")
+	$("#myzhinan-arrow").attr("src", "/images/arrow-down.png");
+
+	});	
+$('#myzhinan-head').mouseover(function(){
+	$('#myzhinan-menu').css("visibility", "visible");
+	$('#myzhinan-head').css("background", "#DCDCDC");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-up.png");
+	});
+$('#myzhinan-head').mouseout(function(){
+	$('#myzhinan-head').css("background", "#f5f5f5");
+	$('#myzhinan-menu').css("visibility", "hidden");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-down.png");
+	});	
+
+
+	
+$('#exitbtn').mouseover(function(){
+  var newSrc = $(this).attr("src").replace("exit.png", "exit2.png");
+  $(this).attr("src", newSrc); 
+});
+$('#exitbtn').mouseout(function(){
+  var newSrc = $(this).attr("src").replace("exit2.png", "exit.png");
+  $(this).attr("src", newSrc); 
+});
+
+$("#loginbtn").click(function(){
+	  $(".loginform").css("visibility","visible"); 
+	});
+$('#exitbtn').click(function(){
+	$(".loginform").css("visibility","hidden"); 
+  });
+
+$('#submitbtn').click(function(){
+
+	$('.notice').empty();
+	var username=$('#username').val().trim();
+	var password=$('#password').val().trim();	
+	var autologin = $('.rememberpsw-check:checked').val();
+	if( username!="" && password!=""){	
+			  $.ajax({		   
+		            url:"/account/login",   
+		            data:{   
+		            	username: username,             
+		                password:password,
+		                autologin:autologin   
+		            },          
+		            type:"POST",           
+		            dataType:"text", 
+		            success:function(data)
+		            {
+		              if(data>0){			            	           
+			              if(data==2){
+				        	  window.location.href='/index/index'; 
+				          }
+				          if(data==1){
+			                txt = "帐号没有被激活，请登入注册邮箱查看激活链接";
+			      		    $('.notice').append(txt);
+			              }
+		              }else{
+				            txt = "用户及密码不匹配，请重新输入";
+				      	    $('.notice').append(txt);
+			           }
+		            }
+		        });
+		}else{
+        if(username=="" && password==""){
+            txt = "用户名及密码不能为空";
+    		 $('.notice').append(txt);
+        }else if(password==""){
+            txt = "密码不能为空";
+    		 $('.notice').append(txt);
+        }else if(username==""){
+ 
+            txt = "用户名不能为空";
+    		 $('.notice').append(txt);
+        }
+		}
+		
+});
+
+  //$(window).unload( function () { alert("Bye now!"); } );
+
+
+</script>

@@ -1,0 +1,69 @@
+<div class="authentication-home">
+<?php Zend_Session::start();?>
+
+	<h3>账号安全认证</h3>
+
+	<table class="authenticator">
+		<tr>
+			<td class="authen-c1"><span>邮箱认证</span></td>
+			<td class="authen-c2">邮箱认证可提高账号的安全性和信任级别，同时也可用于找回密码等操作时验证您身份的途径之一。</td>
+			<td class="authen-c3">
+			<?php if($_SESSION['authen']['email']):?>
+			  <span class="authened">已认证</span>
+			<?php endif;?>
+			<?php if(!$_SESSION['authen']['email']):?>
+			  <a onclick="emailAuthenRequest();" class="authen-btn">马上认证</a>
+			<?php endif;?>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="authen-c1"><span>实名认证</span></td>
+			<td class="authen-c2">实名认证可提高账号的安全性和信任级别, 同时也是用户可以在本站进行安全级较高操作的必要途径</td>
+			<td class="authen-c3">
+			<?php if(isset($_SESSION['authen']['name'])):?>
+			  <span class="authened">已认证</span>
+			<?php endif;?>
+			
+			<?php if(!isset($_SESSION['authen']['name'])):?>
+			  <a href="" class="authen-btn">马上认证</a>
+			<?php endif;?>
+			</td>
+			
+		</tr>
+
+		<tr>
+			<td class="authen-c1"><span>营业执照认证</span></td>
+			<td class="authen-c2">营业执照认证可提高账号的安全性和信任级别。</td>
+			<td class="authen-c3"><a href="" class="authen-btn">马上认证</a></td>
+		</tr>
+
+
+	</table>
+
+</div>
+<script>
+function emailAuthenRequest(){
+	showProcessImage();
+	 $.ajax({		   
+	        url:"/authentication/emailauthenrequest",   
+	        data:{   
+	        },          
+	        type:"POST",           
+	        dataType:"text", 
+	        success:function(data)
+	        {
+	         clearProcessImage();  
+	         if(data){
+		         alert('请求已发出，请登入注册邮箱继续认证');
+	         }else{
+	        	 alert('请求发送失败，请稍后再试');
+	         }
+		         
+	        }
+	    });
+}
+
+
+
+</script>

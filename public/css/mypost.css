@@ -1,0 +1,221 @@
+@CHARSET "UTF-8";
+/* index*/
+.navigation ul li a {
+	background: #1975FF;
+	color: #fff;
+}
+
+.navigation ul li a:hover {
+	color: #ff8400;
+}
+
+.mypost-head ul {
+	list-style: none;
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 780px;
+	height: 26px;
+	border-style: solid;
+	border-width: 0px 0px 1px 0px;
+	border-color: #DCDCDC;
+}
+
+.mypost-head ul li {
+	float: left;
+	padding-left: 10px;
+}
+
+.mypost-head ul li a {
+	padding: 3px 10px 6px 10px;
+	border-style: solid;
+	border-width: 1px 1px 1px 1px;
+	border-color: #DCDCDC;
+	border-radius: 5px 5px 0 0;
+	z-index: 10;
+	color: #1975FF;
+	text-decoration: none;
+}
+
+.mypost-head ul li.hover a {
+	border-bottom: 2px solid #fff;
+	border-top: 2px solid red;
+	color: #009900;
+}
+
+.mypost-head ul li a:hover {
+	color: #ff8400;
+	text-decoration: underline;
+}
+
+.mypost-head ul li.hover a:hover {
+	color: #009900;
+	text-decoration: none;
+}
+.myzn-right h3{
+	color:#595959;
+}
+.myzn-right #mypost-guid {
+	width: 700px;
+	height: 400px;
+	margin-left: 50px;
+	margin-top: 50px;
+}
+#mypost-guid {opacity:0.8}
+#mypost-guid span{font-weight:bold;font-size:13px;}
+#mypost-guid ul{list-style:none;}
+#mypost-guid ul li{line-height:25px;font-size:12px; line-height:30px;}
+/* display */
+.mypost-table {
+	table-layout: fixed;
+	border-collapse: collapse;
+	margin-left: 20px;
+	width: 700px;
+	font-size: 13px;
+	text-align: left;
+	color: #626462;
+}
+
+.mypost-table th {
+	font-size: 14px;
+	height: 30px;
+	color: #464646;
+	border-bottom: 1px solid #DCDCDC;
+}
+
+.mypost-table .mypost-head {
+	padding-top: 10px;
+}
+
+.mypost-table tr {
+	line-height: 25px;
+}
+
+.mypost-table .mypost-even {
+	background: #F6FAF6;
+}
+
+.mypost-table .mpt-col0 {
+	width: 50px;
+}
+
+.mypost-table .mpt-col1 {
+	width: 80px;
+}
+
+.mypost-table .mpt-col2 {
+	width: 300px;
+}
+
+.mypost-table .mpt-col3 {
+	width: 90px;
+}
+
+.mypost-table .mpt-col4 {
+	width: 80px;
+}
+.mypost-table .mpt-col6 {
+	width: 80px;
+}
+.mypost-table .mpt-col7 {
+	width: 180px;
+}
+.mypost-table .mpt-col2 a {
+	text-decoration: none;
+	color: #1975FF;
+}
+
+.mypost-table .mpt-col2 a:hover {
+	text-decoration: underline;
+	color: #ff8400;
+}
+
+.mypost-table .mpt-col4 a {
+	text-decoration: none;
+	color: #1975FF;
+	cursor: pointer;
+}
+
+.mypost-table .mpt-col4 a:hover {
+	text-decoration: underline;
+	color: #ff8400;
+}
+
+.mypost-table .mpt-col5 a {
+	text-decoration: none;
+	color: #FF1975;
+	cursor: pointer;
+}
+
+.mypost-table .mpt-col5 a:hover {
+	text-decoration: underline;
+	color: #ff8400;
+}
+#mypost-display{
+	margin-top:20px;
+}
+#mypost-display .mypost-table td{font-size:12px;}
+#mypost-display .mp-np-notice {
+	widht: 500px;
+	margin: 80px 0 0 0px;
+}
+
+#mypost-display .mp-np-notice p {
+	text-align:center;
+	font-size: 18px;
+	color: #FF5C33;
+	margin-bottom: 20px;
+}
+#mypost-display .mp-np-notice a {
+	font-size: 15px;
+	color: #1975FF;
+}
+
+#mypost-display .mp-np-notice a:hover {
+	font-size: 15px;
+	color: #ff8400;
+}
+
+/* delete check form*/
+.deleteckform {
+	width: 360px;
+	height: 200px;
+	position: fixed;
+	top: 45%;
+	left: 50%;
+	margin-top: -120px;
+	margin-left: -150px;
+	background: #fff;
+	box-shadow: 1px 1px 2px 2px #888888;
+	border-radius: 3px;
+}
+
+.deleteckform p {
+	margin-top: 40px;
+	text-align: center;
+	font-size: 20px;
+	color: red;
+}
+
+.deleteckform p input {
+	margin-right: 18px;
+	margin-left: 18px;
+	margin-top: 10px;
+	width: 80px;
+	height: 35px;
+	cursor: pointer;
+	background: #1975FF;
+	border: none;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.deleteckform p input:hover {
+	background: #5E9EFF;
+}
+
+/* mypost delele or expired */
+#mypost-delete {
+	margin-top: 24px;
+}

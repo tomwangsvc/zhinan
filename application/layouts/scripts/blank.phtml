@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>新西兰指南网</title>
+<meta name="description"
+	content="http://www.metinfo.cn/demo/trade026/329/" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/jobs.css" type="text/css">
+<script src="/js/jQuery1.7.2.js" type="text/javascript"></script>
+<script src='/js/menu_slider.js' type='text/javascript'></script>
+<?php echo $this->headScript()->appendFile('/js/ajax.js');?>
+<?php echo $this->headScript()->appendFile('/js/zhinan.js');?>
+</head>
+
+<body>
+	<div class="topbar">
+		<div class="sub-topbar  inner">
+			<div class="bar-left">
+				<span><a href="/jobs/index">招聘首页</a></span>
+
+			</div>
+			<!-- end of bar-left -->
+
+			<div class="bar-right">
+
+				<ul>
+					<li>
+	<?php
+	Zend_Session::start ();
+	if (isset ( $_SESSION ['user'] )) {
+		echo ' <span id="logineduser"> 您好! ' . $_SESSION ['user'] ['name'];
+		echo '</span><span>|</span>';
+		echo "<li><a href='/account/logout'> 安全退出</a></li>";
+	} else {
+		// echo "<a id='loginbtn'> 登入</a>";
+	}
+	?>
+	</li>
+					<!-- 	<li><span>|</span></li>						 -->
+					<!-- 	<li><a href='/account/register'> 注册</a></li> -->
+					<!-- 	<li><span>|</span></li> -->
+					<li><a id="myzhinan-head" href='javascript:void();'>我的指南<img
+							id="myzhinan-arrow" src="/images/arrow-down.png">
+					</a>
+						<div id="myzhinan-menu">
+
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/account/changepassword"';}?>>修改密码</a>
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/mypost/index"';}?>>我的发布</a>
+							<a
+								<?php if(isset($_SESSION['user'])){echo 'href="/myzhinan/index"';}?>>个人中心</a>
+						</div></li>
+					<li><span>|</span></li>
+					<li><a href='#'>帮助</a></li>
+				</ul>
+
+			</div>
+			<!-- end of bar-right -->
+		</div>
+		<!-- end of sub-topbar -->
+	</div>
+	<!-- end of topbar -->
+ 
+ 
+  
+ <?php echo $this->layout()->content; ?>

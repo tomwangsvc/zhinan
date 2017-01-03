@@ -1,0 +1,448 @@
+<div id="userdata">
+
+	<form method="post" action="/myzhinan/userdata">
+
+		<h3>基本信息</h3>
+
+  <?php
+		$thisyear = date ( "Y" ) + 1;
+		$years = array ();
+		for($i = 120; $i > 0; $i --) {
+			$thisyear -= 1;
+			$years [] = $thisyear;
+		}
+		
+		$months = array ();
+		for($i = 1; $i < 13; $i ++) {
+			if ($i < 10) {
+				$i = "0" . $i;
+			}
+			$months [] = $i;
+		}
+		$dates = array ();
+		for($i = 1; $i < 32; $i ++) {
+			if ($i < 10) {
+				$i = "0" . $i;
+			}
+			$dates [] = $i;
+		}
+		
+		$data = $this->data;
+		
+		?>
+<?php Zend_Session::start();?>
+ 
+ <table class="user-general">
+
+			<tr>
+				<td class="t-ttl">用户名:</td>
+				<td><input type="text"
+					value="<?php echo $_SESSION['user']['name'];?>" disabled="disabled"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">注册邮箱:</td>
+				<td><input type="text"
+					value="<?php echo $_SESSION['user']['email'];?>"
+					disabled="disabled"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">真实姓名:</td>
+				<td><input type="text" value="<?php echo $data['realname'];?>"
+					name="realname" id="realname" class="user-input"> 
+				<?php if($_SESSION['authen']['name']):?>	
+					<span id="smrz"><a>实名认证用户</a></span></td>
+				<?php endif;?>
+			</tr>
+
+			<tr>
+				<td class="t-ttl">性别:</td>
+				<td><input class="gender" type="radio" name="gender"
+					<?php echo $data['gender']="female"? 'checked="checked"':""?>
+					value="2"> <label class="g-lb">女</label> <input class="gender"
+					type="radio" name="gender"
+					<?php echo $data['gender']="male"? 'checked="checked"':""?>
+					value="1"> <label class="g-lb">男</label> <span id="Sex_Tip"></span></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">生日:</td>
+				<td><select id="dateselect" class="dateselect" name="date">
+   <?php
+			
+foreach ( $dates as $date ) {
+				if ($data ['date'] == $date) {
+					echo "<option selected=" . $date . " value=" . $date . ">" . $date . "</option>";
+				} else {
+					echo "<option value=" . $date . ">" . $date . "</option>";
+				}
+			}
+			?>
+ </select> <span>日</span> <select id="monthselect" class="monthselect"
+					name="month">
+   <?php
+			
+foreach ( $months as $month ) {
+				if ($data ['month'] == $month) {
+					echo "<option selected=" . $month . " value=" . $month . ">" . $month . "</option>";
+				} else {
+					echo "<option value=" . $month . ">" . $month . "</option>";
+				}
+			}
+			?>
+ </select> <span>月</span> <select id="yearselect" class="yearselect"
+					name="year">
+     <?php
+					
+foreach ( $years as $year ) {
+						if ($data ['year'] == $year) {
+							echo "<option selected=" . $year . " value=" . $year . ">" . $year . "</option>";
+						} else {
+							echo "<option value=" . $year . ">" . $year . "</option>";
+						}
+					}
+					?>
+  
+ </select> <span>年</span></td>
+			</tr>
+
+			<tr>
+				<td class="t-ttl">所在地:</td>
+				<td><select id="position-region" class="position" name="region">
+						<option value="0" selected="">--请选择--</option>
+     <?php
+					
+foreach ( $this->regions as $region ) {
+						if ($region ['id'] == $data ['region']) {
+							echo "<option selected=" . $region ['id'] . " value=" . $region ['id'] . ">" . $region ['name'] . "</option>";
+						} else {
+							echo "<option  value=" . $region ['id'] . ">" . $region ['name'] . "</option>";
+						}
+					}
+					?>
+  
+  </select> <span class="t-span">区</span> <select id="position-district"
+					class="position" name="district">
+    
+    <?php
+				if ($id = $data ['district']) {
+					echo '<option value="' . $id . '" selected="selected">' . $this->districts [$id] . '</option>';
+				} else {
+					echo '<option value="0" selected="">--请选择-- </option>';
+				}
+				?>
+    
+  </select> <span class="t-span">市</span> <select id="position-town"
+					class="position" name="town">
+  
+  <?php
+		if ($id = $data ['town']) {
+			echo '<option value="' . $id . '" selected="selected">' . $this->towns [$id] . '</option>';
+		} else {
+			echo '<option value="0" selected="">--请选择-- </option>';
+		}
+		
+		?>
+  
+  </select> <span class="t-span">镇</span></td>
+			</tr>
+
+			<script>
+
+
+ $('#realname').focus(function(){
+	
+	$(this).css("border", "1px solid #52CC29");
+
+	});
+$('#realname').focusout(function(){
+	
+		var name=$(this).val().trim();
+		if(!validateName(name)){
+			$('#realname').css("border", "1px solid red");
+		}else{
+			$('#realname').css("border", "1px solid #c8c8c8");
+		}
+		
+});
+
+
+
+
+
+
+
+
+
+ 
+ $("#position-district").change(function(){
+		//alert(selected_district);
+		var selected_town = '<?php echo $data['town']?>';
+		var district_id = $("#position-district option:selected" ).val();
+		
+	    $.ajax({		   
+	        url:"/myzhinan/gettowns",   
+	        data:{                  
+	        	district_id:district_id     
+	        },          
+	        type:"POST",            
+	        dataType:"text",        
+	        success:function(data)
+	        {   
+	            var result = $.parseJSON(data);
+	            $('#position-town').empty();
+	            var txt = '<option value="" selected="">--请选择-- </option>';
+	            $('#position-town').append(txt);
+	              $.each(result, function(k, v) {           	
+	            	  //alert(k + ' is ' + v);
+	                   var txt = '<option value="'+ k +'" >'+ v +' </option>';
+	            	   $('#position-town').append(txt);
+					});
+	        }
+	    });
+	   
+	});
+
+ 
+$("#position-region").change(function(){
+	//alert(selected_district);
+	var selected_district = '<?php echo $data['district']?>';
+	var region_id = $("#position-region option:selected" ).val();
+	
+    $.ajax({		   
+        url:"/myzhinan/getdistricts",   
+        data:{                  
+            region_id:region_id      
+        },          
+        type:"POST",            
+        dataType:"text",        
+        success:function(data)
+        {   
+            var result = $.parseJSON(data);
+            $('#position-district').empty();
+            var txt = '<option value="" selected="">--请选择-- </option>';
+            $('#position-district').append(txt);
+              $.each(result, function(k, v) {           	
+                   var txt = '<option value="'+ k +'" >'+ v +' </option>';
+            	   $('#position-district').append(txt);           	    
+				});
+            $('#position-town').empty();
+      		var txt = '<option value="" selected="">--请选择-- </option>';
+      		$('#position-town').append(txt);	
+        }
+    });
+
+    
+   
+});
+
+
+
+ </script>
+
+
+			<tr>
+				<td class="t-ttl">职业:</td>
+				<td><select id="career" class="career" name="career">
+						<option value="0" selected="">--请选择--</option>
+						<option
+							<?php if($data['career']=="1") echo 'selected="selected"'; ?>
+							value="1">学生</option>
+						<option
+							<?php if($data['career']=="2") echo 'selected="selected"'; ?>
+							value="2">政府机关/干部</option>
+						<option
+							<?php if($data['career']=="3") echo'selected="selected"'; ?>
+							value="3">邮电通信</option>
+						<option
+							<?php if($data['career']=="4") echo'selected="selected"'; ?>
+							value="4">计算机</option>
+						<option
+							<?php if($data['career']=="5") echo'selected="selected"'; ?>
+							value="5">网络</option>
+						<option
+							<?php if($data['career']=="6") echo'selected="selected"'; ?>
+							value="6">商业/贸易</option>
+						<option
+							<?php if($data['career']=="7") echo'selected="selected"'; ?>
+							value="7">银行/金融/证券/保险/投资</option>
+						<option
+							<?php if($data['career']=="8") echo'selected="selected"'; ?>
+							value="8">税务</option>
+						<option
+							<?php if($data['career']=="9") echo'selected="selected"'; ?>
+							value="9">咨询</option>
+						<option
+							<?php if($data['career']=="10") echo'selected="selected"'; ?>
+							value="10">社会服务</option>
+						<option
+							<?php if($data['career']=="11") echo'selected="selected"'; ?>
+							value="11">旅游/饭店</option>
+						<option
+							<?php if($data['career']=="12") echo'selected="selected"'; ?>
+							value="12">健康/医疗服务</option>
+						<option
+							<?php if($data['career']=="13") echo'selected="selected"'; ?>
+							value="13">房地产</option>
+						<option
+							<?php if($data['career']=="14") echo'selected="selected"'; ?>
+							value="14">交通运输</option>
+						<option
+							<?php if($data['career']=="15") echo'selected="selected"'; ?>
+							value="15">法律/司法</option>
+						<option
+							<?php if($data['career']=="16") echo'selected="selected"'; ?>
+							value="16">文化/娱乐/体育</option>
+						<option
+							<?php if($data['career']=="17") echo'selected="selected"'; ?>
+							value="17">媒介/广告</option>
+						<option
+							<?php if($data['career']=="18") echo'selected="selected"'; ?>
+							value="18">科研/教育</option>
+						<option
+							<?php if($data['career']=="19") echo'selected="selected"'; ?>
+							value="19">农业/渔业/林业/畜牧业</option>
+						<option
+							<?php if($data['career']=="20") echo'selected="selected"'; ?>
+							value="20">矿业/制作业</option>
+						<option
+							<?php if($data['career']=="21") echo'selected="selected"'; ?>
+							value="21">自由职业</option>
+						<option
+							<?php if($data['career']=="22") echo'selected="selected"'; ?>
+							value="22">其他</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">个性签名:</td>
+				<td><textarea class="user-sign" rows="5" cols="20" maxlength="1024"
+						name="description"><?php echo $data['description']; ?></textarea>
+
+				</td>
+			</tr>
+		</table>
+
+		<h3>联系方式</h3>
+
+		<table class="user-contact">
+			<tr>
+				<td class="t-ttl">联系地址:</td>
+				<td><input value="<?php echo $data['address']; ?>" id="address"
+					class="user-input" type="text" name="address"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">邮政编码:</td>
+				<td><input value="<?php echo $data['postcode']; ?>" id="postcode"
+					class="user-input" type="text" name="postcode"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">固定电话:</td>
+				<td><input value="<?php echo $data['phone']; ?>" id="phone"
+					class="user-input" type="text" name="phone"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">移动电话:</td>
+				<td><input value="<?php echo $data['mobile']; ?>" id="mobile"
+					class="user-input" type="text" name="mobile"></td>
+			</tr>
+			<tr>
+				<td class="t-ttl">QQ:</td>
+				<td><input value="<?php echo $data['qq']; ?>" id="qqnumber"
+					class="user-input" type="text" name="qq"></td>
+			</tr>
+
+		</table>
+
+		<p class="btn">
+			<input id="submitbtn" type="submit" value="保存修改" /> <input
+				type="reset" value="取消重填" />
+		</p>
+
+	</form>
+
+	<script type="text/javascript">
+
+ $('#postcode').focus(function(){
+	
+	$(this).css("border", "1px solid #52CC29");
+
+	});
+ $('#postcode').focusout(function(){
+	
+		var post=$(this).val().trim();
+		if(!validateNumber(post)){
+			$('#postcode').css("border", "1px solid red");
+		}else{
+			$('#postcode').css("border", "1px solid #c8c8c8");
+		}
+		
+});
+ 
+ $('#phone').focus(function(){
+		
+		$(this).css("border", "1px solid #52CC29");
+
+		});
+	 $('#phone').focusout(function(){
+		
+			var post=$(this).val().trim();
+			if(!validateNumber(post)){
+				$('#phone').css("border", "1px solid red");
+			}else{
+				$('#phone').css("border", "1px solid #c8c8c8");
+			}
+			
+	});
+	 
+ $('#qqnumber').focus(function(){
+			
+			$(this).css("border", "1px solid #52CC29");
+
+	});
+$('#qqnumber').focusout(function(){
+			
+				var post=$(this).val().trim();
+				if(!validateNumber(post)){
+					$('#qqnumber').css("border", "1px solid red");
+				}else{
+					$('#qqnumber').css("border", "1px solid #c8c8c8");
+ }
+				
+});
+
+$('#mobile').focus(function(){
+	
+	$(this).css("border", "1px solid #52CC29");
+
+});
+$('#mobile').focusout(function(){
+	
+		var post=$(this).val().trim();
+		if(!validateNumber(post)){
+			$('#mobile').css("border", "1px solid red");
+		}else{
+			$('#mobile').css("border", "1px solid #c8c8c8");
+	}
+		
+});		 
+
+ </script>
+
+
+
+	<div id="save-notice"></div>
+
+</div>
+
+
+<script>
+	   
+$(document).ready(function(){
+  alert("hi");
+	 
+  if($this->notice){
+	  var img = "<img src='/images/alarm.png'  />";
+    	txt = "邮箱不能为空";
+		$('#save-notice').append(img,txt);
+  }
+});
+
+</script>

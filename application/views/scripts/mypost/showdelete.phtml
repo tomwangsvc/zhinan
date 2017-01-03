@@ -1,0 +1,75 @@
+<div id="mypost-delete">
+
+<?php if($this->mydelete): ?>
+<table class="mypost-table">
+  <?php $num = 0;?>
+  <tr class="mypost-head">
+			<th class="mpt-col0"></th>
+			<th class="mpt-col1">类 别</th>
+			<th class="mpt-col2">标 题</th>
+			<th class="mpt-col3">上次更新</th>
+			<th class="mpt-col7" colspan='1'>管理操作</th>
+		</tr>
+  <?php  foreach ($this->mydelete as $post):?>
+	   <?php if($num%2==0):?>
+		  <tr class="mypost-even">
+			<td class="mpt-col0"></td>
+			<td class="mpt-col1"><?php echo $post['classname']?></td>
+			<td class="mpt-col2"><a target='_blank'
+				href='<?php echo $this->url(array('controller'=>'jobs','action'=>'show','id'=>$post['id']));?>'><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo $post['time']?></td>
+			<td class="mpt-col4"><a
+				onclick="repost(<?php echo $post['class']?>,<?php echo $post['id']?>);">重新发布</a></td>
+			<td class="mpt-col6"></td>
+		</tr>
+	  <?php endif;?>
+	  <?php if($num%2!=0):?>
+		  <tr class="mypost-odd">
+			<td class="mpt-col0"></td>
+			<td class="mpt-col1"><?php echo $post['classname']?></td>
+			<td class="mpt-col2"><a target='_blank'
+				href='<?php echo $this->url(array('controller'=>'jobs','action'=>'show','id'=>$post['id']));?>'><?php echo $post['title']?></a></td>
+			<td class="mpt-col3"><?php echo $post['time']?></td>
+			<td class="mpt-col4"><a
+				onclick="repost(<?php echo $post['class']?>,<?php echo $post['id']?>);">重新发布</a></td>
+			<td class="mpt-col6"></td>
+		</tr>
+	  <?php endif;?>
+  <?php $num++;?>
+  <?php endforeach;?>
+ 
+</table>
+ <?php endif;?>
+ 
+ <?php if(!$this->mydelete):?>
+ <div class="mp-np-notice" style="margin-top: 80px;">
+		<p style="text-align: center; font-size:18px; color: #FF5C33; ">没有可显示的信息！</p>
+	</div>
+ <?php endif;?>
+
+
+</div>
+
+<script>
+
+function repost(classid, itemid){
+	 $.ajax({		   
+         url:"/mypost/repost",   
+         data:{   
+        	 classid:classid,             
+        	 itemid:itemid 
+         },          
+         type:"POST",           
+         dataType:"text", 
+         success:function(data)
+         {
+          if(data){
+        	  alert("重新发布成功！");
+              window.location.href='/mypost/showdelete'; 
+          }
+         }
+     });
+	
+}
+
+</script>

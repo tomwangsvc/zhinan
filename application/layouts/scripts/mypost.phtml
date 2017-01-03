@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>新西兰指南网</title>
+<meta name="description"
+	content="http://www.metinfo.cn/demo/trade026/329/" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/myzhinan.css" type="text/css">
+<link rel="stylesheet" href="/css/mypost.css" type="text/css">
+<script src="/js/jQuery1.7.2.js" type="text/javascript"></script>
+<?php echo $this->headScript()->appendFile('/js/ajax.js');?>
+<?php echo $this->headScript()->appendFile('/js/zhinan.js');?>
+<?php echo $this->headScript()->appendFile('/js/jquery.color.js');?>
+</head>
+
+<body>
+	<div class="topbar">
+		<div class="sub-topbar  inner">
+			<div class="bar-left">
+				<span><a href="/index/index">指南首页</a></span>
+			</div>
+			<!-- end of bar-left -->
+
+			<div class="bar-right">
+
+				<ul>
+					<li>
+	<?php
+	Zend_Session::start ();
+	if ($_SESSION ['user']) {
+		echo ' <span id="logineduser"> 您好! ' . $_SESSION ['user'] ['name'];
+		echo '</span><span>|</span>';
+		echo "<li><a href='/account/logout'> 安全退出</a></li>";
+	} else {
+		echo "<a id='loginbtn'> 登入</a>";
+	}
+	?>
+	</li>
+					<li><span>|</span></li>
+					<li><a href='/account/register'> 注册</a></li>
+					<li><span>|</span></li>
+					<li><a id="myzhinan-head" href='javascript:void();'>我的指南<img
+							id="myzhinan-arrow" src="/images/arrow-down.png">
+					</a>
+						<div id="myzhinan-menu">
+
+							<a
+								<?php if($_SESSION['user']){echo 'href="/account/changepassword"';}?>>修改密码</a>
+							<a <?php if($_SESSION['user']){echo 'href="/mypost/index"';}?>>我的发布</a>
+							<a <?php if($_SESSION['user']){echo 'href="/myzhinan/index"';}?>>个人中心</a>
+						</div></li>
+					<li><span>|</span></li>
+					<li><a href='#'>帮助</a></li>
+				</ul>
+
+			</div>
+			<!-- end of bar-right -->
+		</div>
+		<!-- end of sub-topbar -->
+	</div>
+	<!-- end of topbar -->
+
+	<div class="homewrap inner">
+
+		<div class="web_logo">
+			<a href="/index/index"> <img src="/images/logo2.png" alt="新西兰指南网"
+				title="新西兰指南网" />
+			</a>
+		</div>
+
+		<div class="top-search">
+			<form action="/index/search" method="post">
+				<input class="ts-cont" type="text" name="search-content"><input
+					class="ts-sub" type="submit" value="指南搜索">
+			</form>
+		</div>
+		<!-- end of top-search -->
+
+		<div class="free-post">
+			<a>免费发布信息</a>
+		</div>
+
+
+	</div>
+	<!-- end of homewrap -->
+
+
+	<div class="navigation inner">
+		<ul>
+			<li><a <?php if($this->current=="index"){echo 'class="current"';}?>
+				href="/myzhinan/index">我的指南</a></li>
+		</ul>
+
+	</div>
+	<!-- end of navigation -->
+
+	<div class="content inner">
+
+		<div class="myzn-left">
+			<ul class="top-menu">
+				<li><span><img src="/images/-.png" class="zn-btn"><a
+						href="/mypost/index">我的发布</a></span></li>
+				<li><span><img src="/images/-.png" class="zn-btn"><a href="">我的收藏</a></span></li>
+				<li><span><img src="/images/-.png" id="acnt-btn" class="zn-btn"><a
+						class="zn-font" href="">帐户管理</a></span>
+					<ul class="sub-menu" id="sub-acnt">
+						<li><a href="/myzhinan/userdata">个人资料</a></li>
+						<li><a href="/account/changepassword">修改密码</a></li>
+						<li><a href="/authentication/index">认证管理</a></li>
+						<li><a href="">我的信用</a></li>
+					</ul></li>
+				<li><span><img src="/images/-.png" class="zn-btn"><a href="">我的资金</a></span></li>
+
+			</ul>
+		</div>
+
+		<div class="myzn-right">
+
+		 <h3>发布管理</h3>
+		
+		
+		
+			<div class="mypost-head">
+
+				<ul class="clearfix" id="mypost-ul">
+					<li <?php if($this->hover =='guid'){echo 'class="hover"';}?>><a
+						href="/mypost/index">使用说明</a></li>
+					<li <?php if($this->hover =='display'){echo 'class="hover"';}?>><a
+						href="/mypost/display">显示中的信息</a></li>
+					<li <?php if($this->hover =='verify'){echo 'class="hover"';}?>><a
+						href="/mypost/verifying">审核中的信息</a></li>
+					<li <?php if($this->hover =='verifyfail'){echo 'class="hover"';}?>><a
+						href="/mypost/verifyfail">未通过审核的信息</a></li>
+					<li <?php if($this->hover =='delete'){echo 'class="hover"';}?>><a
+						href="/mypost/showdelete">已删除/过期的信息</a></li>
+				</ul>
+			</div>
+
+
+ <?php echo $this->layout()->content; ?>
+
+</div>
+		<!-- end of myzn-right -->
+
+
+	</div>
+</body>
+</html>
+
+	<script type="text/javascript">
+
+$(document).ready(function() {
+	var right= $( ".myzn-right" ).height();
+	var left =$( ".myzn-left" ).height();
+	//alert(right+"-"+left);
+    if(right>left){
+    	$( ".myzn-left" ).height(right);
+    }else{
+    	$( ".myzn-right" ).height(left);
+    }
+    
+	
+});
+
+	
+var acnt_btn = false;
+$( "#acnt-btn" ).click(function() {	
+	if(acnt_btn){
+		$( "#sub-acnt" ).fadeIn( "milliseconds", "swing");
+		$("#acnt-btn").attr("src", "/images/-.png");
+		$(".zn-font").attr("color","#2B76E6");
+		acnt_btn = false;
+	}else{
+		$( "#sub-acnt" ).fadeOut( "slow", "linear");
+		$("#acnt-btn").attr("src", "/images/+.png");
+		acnt_btn = true;
+	}
+});
+
+
+
+
+$('#myzhinan-menu').mouseover(function(){
+	$('#myzhinan-menu').css("visibility", "visible");
+	$('#myzhinan-head').css("background", "#DCDCDC");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-up.png"); 
+	});
+$('#myzhinan-menu').mouseout(function(){
+	$('#myzhinan-menu').css("visibility", "hidden");
+	$('#myzhinan-head').css("background", "#f5f5f5")
+	$("#myzhinan-arrow").attr("src", "/images/arrow-down.png");
+
+	});	
+$('#myzhinan-head').mouseover(function(){
+	$('#myzhinan-menu').css("visibility", "visible");
+	$('#myzhinan-head').css("background", "#DCDCDC");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-up.png");
+	});
+$('#myzhinan-head').mouseout(function(){
+	$('#myzhinan-head').css("background", "#f5f5f5");
+	$('#myzhinan-menu').css("visibility", "hidden");
+	$("#myzhinan-arrow").attr("src", "/images/arrow-down.png");
+	});	
+
+
+	
+$('#exitbtn').mouseover(function(){
+  var newSrc = $(this).attr("src").replace("exit.png", "exit2.png");
+  $(this).attr("src", newSrc); 
+});
+$('#exitbtn').mouseout(function(){
+  var newSrc = $(this).attr("src").replace("exit2.png", "exit.png");
+  $(this).attr("src", newSrc); 
+});
+
+$("#loginbtn").click(function(){
+	  $(".loginform").css("visibility","visible"); 
+	});
+$('#exitbtn').click(function(){
+	$(".loginform").css("visibility","hidden"); 
+  });
+
+</script>
